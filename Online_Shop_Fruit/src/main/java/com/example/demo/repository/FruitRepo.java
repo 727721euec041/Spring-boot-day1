@@ -11,21 +11,13 @@ import com.example.demo.model.Fruit;
 import jakarta.transaction.Transactional;
 
 public interface FruitRepo extends JpaRepository<Fruit, Integer> {
-@Query("select f from Fruit f")
-List<Fruit> findAllQuery();
+@Query(value = "select * from fruit_details where id = :s",nativeQuery = true)
+public List<Fruit> getinfoid(@Param("s") int id);
 
-@Query("select f from Fruit f where f.price = :32")
-Fruit findByEmail(@Param("32")String price);
+@Query(value = "delete from fruit_details where id=:t",nativeQuery = true)
+public List<Fruit> getinfoYear(@Param("t") int id);
 
-@Query("select f from Fruit f where f.price = ?1")
-Fruit findByEmailPlace(String price);
 
-@Modifying
-@Transactional
-@Query("update Fruit f set f.price = :hh where f.id = :id")
-void updateUser(@Param("hh") String price, @Param("id") Long id);
-@Modifying
-@Transactional
-@Query("delete from Fruit f where f.id = ?1")
-void deleteUser(int id);
+@Query(value = "update from fruit_details set id=10 where id =:r", nativeQuery = true)
+public List<Fruit> update(@Param("r") int id);
 }

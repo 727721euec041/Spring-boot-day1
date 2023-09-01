@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,29 +23,30 @@ import com.example.demo.service.FruitService;
 
 @RestController
 public class FruitController {
+	
+	private final static Logger logger = LoggerFactory.getLogger(FruitController.class);
+	
+	
+	
+	
 	@Autowired
 	FruitService fser;
 	
 	@GetMapping("getit")
-	public List<Fruit> show(){
+	public List<Fruit> show()
+	{
+		System.out.println("sop");
+		logger.info("jsdbn");
 		return fser.showinfo();
 	}
 	
-	@GetMapping("/getQuery")
-	public ResponseEntity<List<Fruit>> getQuery()
-	{
-		return ResponseEntity.status(200).body(fser.findAllQuery());
-	}
- 	
+
 	@GetMapping("getId/{id}")
-	public Optional<Fruit> showid(@PathVariable int id) {
+	public Optional<Fruit> showid(@PathVariable int id)
+	{
 		return fser.readid(id);
 	}
-	@PutMapping("updatequery")
-	public void updateUserQuery(@PathVariable String price, @PathVariable Long id)
-	{
-		fser.updateUserQuery(price, id);
-	}
+
 	@GetMapping("getAllUser")
 	
 		public ResponseEntity<Page<Fruit>> getAllUSer
@@ -60,25 +64,43 @@ public class FruitController {
 	
 	
 	@PostMapping("add")
-	public String add(@RequestBody Fruit fr) {
+	public String add(@RequestBody Fruit fr) 
+	{
 		return  fser.create(fr);
 	}
 	
 	@PutMapping("update/{id}")
-	public Fruit updateId(@PathVariable int id, @RequestBody Fruit fr) {
+	public Fruit updateId(@PathVariable int id, @RequestBody Fruit fr)
+	{
 		return fser.updateId(id, fr);
 	}
 	
 	
 	
 	@DeleteMapping("delete/{id}")
-	public String delete(@PathVariable int id) {
+	public String delete(@PathVariable int id)
+	{
 		return fser.deleteId(id);
 	}
-	@DeleteMapping("deleteQuery")
-	public int deleteUserQuery(@PathVariable int id)
+	
+	@GetMapping("getquery/{id}")
+ 	public Optional<Fruit> display(@PathVariable int id)
+ 	{
+ 		return fser.readid(id);
+ 	}
+	
+	@DeleteMapping("delquery/{id}")
+	public String disp(@PathVariable int id)
 	{
-		return fser.deleteUser(id);
+		return fser.deleteId(id);
 	}
+	
+	@PutMapping("updateq/{id}")
+	public Fruit updisp(@PathVariable int id, @RequestBody Fruit fr)
+	{
+		return fser.updateQuery(id, fr);
+	}
+	
+	
 	
 }

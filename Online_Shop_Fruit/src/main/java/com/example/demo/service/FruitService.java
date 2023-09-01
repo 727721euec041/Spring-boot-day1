@@ -55,18 +55,26 @@ public class FruitService {
 	{
 		return f.findAll(pageRequest);
 	}
-	public List<Fruit> findAllQuery()
-	{
-		return f.findAllQuery();
+
+	public List<Fruit> getinfoid(int id) {
+		// TODO Auto-generated method stub
+		return f.getinfoid(id);
 	}
-	public void updateUserQuery(String price, Long id)
-	{
-		f.updateUser(price, id);
+
+	public List<Fruit> getinfoYear(int id) {
+		// TODO Auto-generated method stub
+		return f.getinfoYear(id);
 	}
-	public int deleteUser(int id)
-	{
-		f.deleteUser(id);
-		return id;
+	
+	public Fruit updateQuery(int id, Fruit bk) {
+		if(f.existsById(id)) {
+			System.out.println("UPDATED SUCCESSFULLY");
+			return f.saveAndFlush(bk);
+		}
+		else {
+			System.out.println("Please enter a valid id");
+			return bk;
+		}
 	}
 
 	
